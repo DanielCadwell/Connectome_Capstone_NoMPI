@@ -18,8 +18,8 @@ using namespace std;
 //  file names for linux implementation
 //string connectome_file = "connectome.csv";
 //string synaptic_file = "postsynaptic.csv";
-string connectome_file = "edgelist.csv";
-string synaptic_file = "synaptic.csv";
+//string connectome_file = "edgelist.csv";
+//string synaptic_file = "synaptic.csv";
 
 //  direct file paths for debugging
 //string connectome_file = "/Users/vanessaulloa/ClionProjects/connectome/connectome.csv";
@@ -29,8 +29,8 @@ string synaptic_file = "synaptic.csv";
 
 //string connectome_file = "K:\\School\\Summer_2016\\connectome_noMPI\\connectome.csv";
 //string synaptic_file = "K:\\School\\Summer_2016\\connectome_noMPI\\postsynaptic.csv";
-//string connectome_file = "K:\\School\\Summer_2016\\connectome_noMPI\\edgelist.csv";
-//string synaptic_file = "K:\\School\\Summer_2016\\connectome_noMPI\\synaptic.csv";
+string connectome_file = "K:\\School\\Summer_2016\\connectome_noMPI\\edgelist.csv";
+string synaptic_file = "K:\\School\\Summer_2016\\connectome_noMPI\\synaptic.csv";
 
 /*
  * threshold - determines when neuron fires
@@ -65,7 +65,29 @@ int main() {
             maintains accumulated values for each neuron and muscle.
     */
 
-    //  variable for user input
+    /***** OPEN FILE TO STORE SELECTED OUTPUT *****/
+
+    //  get local time to append to file name for storage in output folder
+    time_t t = time(NULL);
+    char* charTime = ctime(&t);
+    tm* localTime = localtime(&t);
+
+    int Day    = localTime->tm_mday;
+    int Month  = localTime->tm_mon + 1;
+    int Year   = localTime->tm_year + 1900;
+    int Hour   = localTime->tm_hour;
+    int Min    = localTime->tm_min;
+    int Sec    = localTime->tm_sec;
+
+    string outputDate = to_string(Day) + to_string(Month) + to_string(Year) + "_" + to_string(Hour) + to_string(Min) + to_string(Sec);
+
+    //outputfile.open("/Users/vanessaulloa/ClionProjects/connectome_noMPI/output.txt");
+    //outputfile.open("/Users/vanessaulloa/ClionProjects/connectome_noMPI/output/"+ neuron + "_" + outputDate  + ".dat");
+    outputfile.open("K:\\School\\Summer_2016\\connectome_noMPI\\output\\"+ neuron + "_" + outputDate  + ".dat");
+    //outputfile.open("output.txt");
+    //outputfile.open("output/" + neuron + "_" + outputDate  + ".dat");
+
+    /***** END FILE DECLARATION *****/
 
 
     /***** FILL VECTORS *****/
@@ -85,34 +107,6 @@ int main() {
     outputfile << neuron << endl;
 
     /***** END USER INPUT *****/
-
-    /***** OPEN FILE TO STORE SELECTED OUTPUT *****/
-
-    //  get local time to append to file name for storage in output folder
-    time_t t = time(NULL);
-    char* charTime = ctime(&t);
-    tm* localTime = localtime(&t);
-
-    int Day    = localTime->tm_mday;
-    int Month  = localTime->tm_mon + 1;
-    int Year   = localTime->tm_year + 1900;
-    int Hour   = localTime->tm_hour;
-    int Min    = localTime->tm_min;
-    int Sec    = localTime->tm_sec;
-
-    string outputDate = to_string(Day) + to_string(Month) + to_string(Year) + "_" + to_string(Hour) + to_string(Min) + to_string(Sec);
-
-    //outputfile.open("/Users/vanessaulloa/ClionProjects/connectome_noMPI/output.txt");
-    //outputfile.open("/Users/vanessaulloa/ClionProjects/connectome_noMPI/output/"+ neuron + "_" + outputDate  + ".dat");
-    //outputfile.open("K:\\School\\Summer_2016\\connectome_noMPI\\output\\"+ neuron + "_" + outputDate  + ".dat");
-    //outputfile.open("output.txt");
-    outputfile.open("output/" + neuron + "_" + outputDate  + ".dat");
-
-    /***** END FILE DECLARATION *****/
-
-
-    /***** MASTER NODE WORK START *****/
-
 
     for (int i = 0; i < connectome_vector.size(); i++) {
 
