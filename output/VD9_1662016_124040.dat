@@ -1,0 +1,60 @@
+Please enter a neuron: VD9
+
+File K:\School\Summer_2016\connectome_noMPI\connectome.csv successfully read.
+File K:\School\Summer_2016\connectome_noMPI\postsynaptic.csv successfully read.
+
+
+----------
+
+Running Connectome with neuron: VD9
+----------
+
+
+----------
+
+Running Connectome with neuron: VD9
+----------
+
+Fire Neuron MVL17
+Fire Neuron MVL18
+Fire Neuron MVR17
+Fire Neuron MVR18
+
+----------
+
+Running Connectome with neuron: VD9
+----------
+
+
+----------
+
+Running Connectome with neuron: VD9
+----------
+
+Fire Neuron MVL17
+Fire Neuron MVL18
+Fire Neuron MVR17
+Fire Neuron MVR18
+Fire Neuron VD10
+
+----------
+
+Running Connectome with neuron: VD9
+----------
+
+Fire Neuron MVR17
+
+----------
+
+Running Connectome with neuron: VD9
+----------
+
+Fire Neuron MVL17
+Fire Neuron MVL18
+Fire Neuron MVR18
+
+----------
+Total Neurons Fired: 13
+Total Muscles Fired: 0
+Total Run Time: 3 seconds
+----------
