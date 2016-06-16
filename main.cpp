@@ -18,8 +18,8 @@ using namespace std;
 //  file names for linux implementation
 //string connectome_file = "connectome.csv";
 //string synaptic_file = "postsynaptic.csv";
-string connectome_file = "edgelist.csv";
-string synaptic_file = "synaptic.csv";
+//string connectome_file = "edgelist.csv";
+//string synaptic_file = "synaptic.csv";
 
 //  direct file paths for debugging
 //string connectome_file = "/Users/vanessaulloa/ClionProjects/connectome/connectome.csv";
@@ -27,13 +27,19 @@ string synaptic_file = "synaptic.csv";
 //string connectome_file = "/Users/vanessaulloa/ClionProjects/connectome/edgelist.csv";
 //string synaptic_file = "/Users/vanessaulloa/ClionProjects/connectome/synaptic.csv";
 
+string connectome_file = "K:\\School\\Summer_2016\\connectome_noMPI\\connectome.csv";
+string synaptic_file = "K:\\School\\Summer_2016\\connectome_noMPI\\postsynaptic.csv";
+//string connectome_file = "K:\\School\\Summer_2016\\connectome_noMPI\\edgelist.csv";
+//string synaptic_file = "K:\\School\\Summer_2016\\connectome_noMPI\\synaptic.csv";
+
 /*
  * threshold - determines when neuron fires
  * counter - for display
  */
 int threshold = 15;
 int neuronFireCount,muscleFireCount = 0;
-clock_t t1,t2,t3;
+string neuron;
+clock_t t2;
 ofstream outputfile;
 
 //  vectors to hold neuron data
@@ -50,7 +56,7 @@ void testFiles(vector<synapse> &, vector<synapse> &);
 
 ///
 
-int main(int argc, char** argv) {
+int main() {
 
     /*
         connectome_vector:
@@ -62,85 +68,87 @@ int main(int argc, char** argv) {
     //  variable for user input
 
 
-        /***** FILL VECTORS *****/
+    /***** FILL VECTORS *****/
 
-        read_connectome(connectome_vector);
-        read_postsynaptic(postsynaptic_vector);
-        //testFiles(connectome_vector,postsynaptic_vector);
+    read_connectome(connectome_vector);
+    read_postsynaptic(postsynaptic_vector);
+    //testFiles(connectome_vector,postsynaptic_vector);
 
-        /***** END FILL VECTORS *****/
+    /***** END FILL VECTORS *****/
 
-        /***** START USER INPUT *****/
+    /***** START USER INPUT *****/
 
-        cout << "Please enter a neuron: ";
-        cin >> neuron;
+    cout << "Please enter a neuron: ";
+    cin >> neuron;
 
-        /***** END USER INPUT *****/
+    outputfile << "Please enter a neuron: ";
+    outputfile << neuron << endl;
 
-        /***** OPEN FILE TO STORE SELECTED OUTPUT *****/
+    /***** END USER INPUT *****/
 
-        //  get local time to append to file name for storage in output folder
-        time_t t = time(NULL);
-        char* charTime = ctime(&t);
-        tm* localTime = localtime(&t);
+    /***** OPEN FILE TO STORE SELECTED OUTPUT *****/
 
-        int Day    = localTime->tm_mday;
-        int Month  = localTime->tm_mon + 1;
-        int Year   = localTime->tm_year + 1900;
-        int Hour   = localTime->tm_hour;
-        int Min    = localTime->tm_min;
-        int Sec    = localTime->tm_sec;
+    //  get local time to append to file name for storage in output folder
+    time_t t = time(NULL);
+    char* charTime = ctime(&t);
+    tm* localTime = localtime(&t);
 
-        string outputDate = to_string(Day) + to_string(Month) + to_string(Year) + "_" + to_string(Hour) + to_string(Min) + to_string(Sec);
+    int Day    = localTime->tm_mday;
+    int Month  = localTime->tm_mon + 1;
+    int Year   = localTime->tm_year + 1900;
+    int Hour   = localTime->tm_hour;
+    int Min    = localTime->tm_min;
+    int Sec    = localTime->tm_sec;
 
-        //outputfile.open("/Users/vanessaulloa/ClionProjects/connectome/output.txt");
-        //outputfile.open("/Users/vanessaulloa/ClionProjects/connectome/output/"+ neuron + "_" + outputDate  + ".dat");
-        //outputfile.open("output.txt");
-        outputfile.open("output/" + neuron + "_" + outputDate  + ".dat");
+    string outputDate = to_string(Day) + to_string(Month) + to_string(Year) + "_" + to_string(Hour) + to_string(Min) + to_string(Sec);
 
-        /***** END FILE DECLARATION *****/
+    //outputfile.open("/Users/vanessaulloa/ClionProjects/connectome_noMPI/output.txt");
+    //outputfile.open("/Users/vanessaulloa/ClionProjects/connectome_noMPI/output/"+ neuron + "_" + outputDate  + ".dat");
+    outputfile.open("K:\\School\\Summer_2016\\connectome_noMPI\\output\\"+ neuron + "_" + outputDate  + ".dat");
+    //outputfile.open("output.txt");
+    //outputfile.open("output/" + neuron + "_" + outputDate  + ".dat");
+
+    /***** END FILE DECLARATION *****/
 
 
-        /***** MASTER NODE WORK START *****/
+    /***** MASTER NODE WORK START *****/
 
 
-        for (int i = 0; i < connectome_vector.size(); i++) {
+    for (int i = 0; i < connectome_vector.size(); i++) {
 
-            if (connectome_vector[i].get_neuronA() == neuron) {
+        if (connectome_vector[i].get_neuronA() == neuron) {
 
-                cout << "\n----------\n" << endl;
-                cout << "Running Connectome with neuron: " << connectome_vector[i].get_neuronA()  << endl;
-                cout << "----------\n" << endl;
+            cout << "\n----------\n" << endl;
+            cout << "Running Connectome with neuron: " << connectome_vector[i].get_neuronA()  << endl;
+            cout << "----------\n" << endl;
 
-                outputfile << "\n----------\n" << endl;
-                outputfile << "Running Connectome with neuron: " << connectome_vector[i].get_neuronA()  << endl;
-                outputfile << "----------\n" << endl;
+            outputfile << "\n----------\n" << endl;
+            outputfile << "Running Connectome with neuron: " << connectome_vector[i].get_neuronA()  << endl;
+            outputfile << "----------\n" << endl;
 
-                //  pass neuron from user input to runconnectome function
-                runconnectome(connectome_vector, postsynaptic_vector, connectome_vector[i]);
+            //  pass neuron from user input to runconnectome function
+            runconnectome(connectome_vector, postsynaptic_vector, connectome_vector[i]);
 
-            }
         }
+    }
 
-        /***** END OF PROGRAM DATA *****/
+    /***** END OF PROGRAM DATA *****/
 
-        t2 = clock();
+    t2 = clock();
 
-        cout << "\n----------\n";
-        cout << "Processor: " << processor_name << endl;
-        cout << "Total Neurons Fired: " << neuronFireCount << endl;
-        cout << "Total Muscles Fired: " << muscleFireCount << endl;
-        cout << "Total Run Time: " << (double)(t2/CLOCKS_PER_SEC) << " seconds" << endl;
-        cout << "----------\n";
+    cout << "\n----------\n";
+    cout << "Total Neurons Fired: " << neuronFireCount << endl;
+    cout << "Total Muscles Fired: " << muscleFireCount << endl;
+    cout << "Total Run Time: " << (double)(t2/CLOCKS_PER_SEC) << " seconds" << endl;
+    cout << "----------\n";
 
-        outputfile << "\n----------\n";
-        outputfile << "Processor: " << processor_name << endl;
-        outputfile << "Total Neurons Fired: " << neuronFireCount << endl;
-        outputfile << "Total Muscles Fired: " << muscleFireCount << endl;
-        outputfile << "Total Run Time: " << (double)(t2/CLOCKS_PER_SEC) << " seconds" << endl;
-        outputfile << "----------\n";
+    outputfile << "\n----------\n";
+    outputfile << "Total Neurons Fired: " << neuronFireCount << endl;
+    outputfile << "Total Muscles Fired: " << muscleFireCount << endl;
+    outputfile << "Total Run Time: " << (double)(t2/CLOCKS_PER_SEC) << " seconds" << endl;
+    outputfile << "----------\n";
 
-        /***** END OF PROGRAM DATA END *****/
+    /***** END OF PROGRAM DATA END *****/
 
     //  close the filestream
     outputfile.close();
@@ -212,6 +220,7 @@ void read_connectome(vector<synapse> &connectome_vector) {
     if(!file.is_open()) {
 
         cout << " Connectome.csv file could not be opened. " << endl;
+        outputfile << " Connectome.csv file could not be opened. " << endl;
         exit(0);
 
     }   else    {
@@ -245,6 +254,7 @@ void read_connectome(vector<synapse> &connectome_vector) {
         }   //end while loop
 
         cout << "\nFile " << connectome_file << " successfully read." << endl;
+        outputfile << "\nFile " << connectome_file << " successfully read." << endl;
 
     }// end if statement
 
@@ -271,6 +281,7 @@ void read_postsynaptic(vector<synapse> &postsynaptic_vector)    {
     if(!file.is_open()) {
 
         cout << "file could not be opened. " << endl;
+        outputfile << "file could not be opened. " << endl;
         exit(0);
 
     }   else    {
@@ -287,7 +298,8 @@ void read_postsynaptic(vector<synapse> &postsynaptic_vector)    {
 
         }// end while
 
-        cout << "\nFile " << synaptic_file << " successfully read." << endl;
+        cout << "File " << synaptic_file << " successfully read.\n" << endl;
+        outputfile << "File " << synaptic_file << " successfully read.\n" << endl;
 
     }//  end if statement
 
@@ -322,10 +334,10 @@ void dendriteAccumulate(vector<synapse> &connectome_vector, vector<synapse> &pos
                     //  POSTSYNAPTIC VECTOR is altered here.
                     postsynaptic_vector[y].set_weight(connectome_vector[x].get_weight());
                     /*
-                    cout << "\t\tpostsynaptic vector altered at: ";
-                    cout << " " << postsynaptic_vector[y].get_neuronA() << ", " << (postsynaptic_vector[y].get_weight() - connectome_vector[x].get_weight()) << "+" << connectome_vector[x].get_weight() << endl;
-                    outputfile << "\t\tpostsynaptic vector altered at: ";
-                    outputfile << " " << postsynaptic_vector[y].get_neuronA() << ", " << (postsynaptic_vector[y].get_weight() - connectome_vector[x].get_weight()) << "+" << connectome_vector[x].get_weight() << endl;
+                    cout << "\tpostsynaptic vector altered at: ";
+                    cout << " " << postsynaptic_vector[y].get_neuronA() << ", " << (postsynaptic_vector[y].get_weight() - connectome_vector[x].get_weight()) << "+" << connectome_vector[x].get_weight() << " = " << postsynaptic_vector[y].get_weight() << endl;
+                    outputfile << "\tpostsynaptic vector altered at: ";
+                    outputfile << " " << postsynaptic_vector[y].get_neuronA() << ", " << (postsynaptic_vector[y].get_weight() - connectome_vector[x].get_weight()) << "+" << connectome_vector[x].get_weight() << " = " << postsynaptic_vector[y].get_weight() << endl;
                     */
                 }// end if
 
