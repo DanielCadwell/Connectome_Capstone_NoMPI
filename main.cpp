@@ -65,6 +65,13 @@ int main() {
             maintains accumulated values for each neuron and muscle.
     */
 
+    /***** START USER INPUT *****/
+
+    cout << "Please enter a neuron: ";
+    cin >> neuron;
+
+    /***** END USER INPUT *****/
+
     /***** OPEN FILE TO STORE SELECTED OUTPUT *****/
 
     //  get local time to append to file name for storage in output folder
@@ -89,6 +96,9 @@ int main() {
 
     /***** END FILE DECLARATION *****/
 
+    outputfile << "Please enter a neuron: ";
+    outputfile << neuron << endl;
+
 
     /***** FILL VECTORS *****/
 
@@ -97,16 +107,6 @@ int main() {
     //testFiles(connectome_vector,postsynaptic_vector);
 
     /***** END FILL VECTORS *****/
-
-    /***** START USER INPUT *****/
-
-    cout << "Please enter a neuron: ";
-    cin >> neuron;
-
-    outputfile << "Please enter a neuron: ";
-    outputfile << neuron << endl;
-
-    /***** END USER INPUT *****/
 
     for (int i = 0; i < connectome_vector.size(); i++) {
 
