@@ -27,10 +27,10 @@ using namespace std;
 //string connectome_file = "/Users/vanessaulloa/ClionProjects/connectome/edgelist.csv";
 //string synaptic_file = "/Users/vanessaulloa/ClionProjects/connectome/synaptic.csv";
 
-//string connectome_file = "K:\\School\\Summer_2016\\connectome_noMPI\\connectome.csv";
-//string synaptic_file = "K:\\School\\Summer_2016\\connectome_noMPI\\postsynaptic.csv";
-string connectome_file = "K:\\School\\Summer_2016\\connectome_noMPI\\edgelist.csv";
-string synaptic_file = "K:\\School\\Summer_2016\\connectome_noMPI\\synaptic.csv";
+string connectome_file = "K:\\School\\Summer_2016\\connectome_noMPI\\connectome.csv";
+string synaptic_file = "K:\\School\\Summer_2016\\connectome_noMPI\\postsynaptic.csv";
+//string connectome_file = "K:\\School\\Summer_2016\\connectome_noMPI\\edgelist.csv";
+//string synaptic_file = "K:\\School\\Summer_2016\\connectome_noMPI\\synaptic.csv";
 
 /*
  * threshold - determines when neuron fires
@@ -411,7 +411,7 @@ void runconnectome(vector<synapse> &connectome_vector, vector<synapse> &postsyna
 
         //cout << "y: " << y << " " << postsynaptic_vector[y].get_neuronA()  << " , " << postsynaptic_vector[y].get_weight() << endl;
 
-        if(postsynaptic_vector[y].get_weight() > threshold)  {
+        if(abs(postsynaptic_vector[y].get_weight()) > threshold)  {
 
             //cout << "y: " << y << " " << postsynaptic_vector[y].get_neuronA()  << " , " << postsynaptic_vector[y].get_weight() << endl;
 
