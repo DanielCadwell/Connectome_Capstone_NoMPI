@@ -47,12 +47,12 @@ vector<synapse> connectome_vector;
 vector<synapse> postsynaptic_vector;
 
 //   function prototypes
-void read_connectome(vector<synapse> &);
-void read_postsynaptic(vector<synapse> &);
-void dendriteAccumulate(vector<synapse> &, vector<synapse> &,synapse);
-void fireNeuron(vector<synapse> &, vector<synapse> &,synapse);
-void runconnectome(vector<synapse> &, vector<synapse> &,synapse);
-void testFiles(vector<synapse> &, vector<synapse> &);
+void read_connectome();
+void read_postsynaptic();
+void dendriteAccumulate(synapse);
+void fireNeuron(synapse);
+void runconnectome(synapse);
+void testFiles();
 
 ///
 
@@ -76,7 +76,6 @@ int main() {
 
     //  get local time to append to file name for storage in output folder
     time_t t = time(NULL);
-    char* charTime = ctime(&t);
     tm* localTime = localtime(&t);
 
     int Day    = localTime->tm_mday;
@@ -102,11 +101,15 @@ int main() {
 
     /***** FILL VECTORS *****/
 
-    read_connectome(connectome_vector);
-    read_postsynaptic(postsynaptic_vector);
+    read_connectome();
+    read_postsynaptic();
     //testFiles(connectome_vector,postsynaptic_vector);
 
     /***** END FILL VECTORS *****/
+
+    /*****  THREADING START *****/
+
+    /*****  THREADING END *****/
 
     for (int i = 0; i < connectome_vector.size(); i++) {
 
@@ -160,7 +163,7 @@ int main() {
  *
  */
 
-void testFiles(vector<synapse> &connectome_vector, vector<synapse> &postsynaptic_vector)  {
+void testFiles()  {
 
     ///
     /*      testing for file reads and pushed values onto vectors   */
@@ -197,7 +200,7 @@ void testFiles(vector<synapse> &connectome_vector, vector<synapse> &postsynaptic
  * read_connectome()
  *
  */
-void read_connectome(vector<synapse> &connectome_vector) {
+void read_connectome() {
 
     // create file reading object and open the file
     /*  NEED WAY TO DYNAMICALLY REFERENCE file  */
@@ -261,7 +264,7 @@ void read_connectome(vector<synapse> &connectome_vector) {
  * read_postsynaptic()
  *
  */
-void read_postsynaptic(vector<synapse> &postsynaptic_vector)    {
+void read_postsynaptic()    {
 
     // create file reading object and open the file
     /*  NEED WAY TO DYNAMICALLY REFERENCE file  */
@@ -305,7 +308,7 @@ void read_postsynaptic(vector<synapse> &postsynaptic_vector)    {
  * dendriteAccumulate()
  *
  */
-void dendriteAccumulate(vector<synapse> &connectome_vector, vector<synapse> &postsynaptic_vector, synapse a)  {
+void dendriteAccumulate(synapse a)  {
 
     int x,y;
 
@@ -313,26 +316,17 @@ void dendriteAccumulate(vector<synapse> &connectome_vector, vector<synapse> &pos
 
         if(connectome_vector[x].get_neuronA() == a.get_neuronA())    {
 
-            //cout << "\nconnectome_vector[" << x << "].get_neuronA() == a.get_neuronA() --> " << connectome_vector[x].get_neuronA() << " = " << a.get_neuronA() << " " << (connectome_vector[x].get_neuronA() == a.get_neuronA()) << endl;
-            //outputfile << "\nconnectome_vector[" << x << "].get_neuronA() == a.get_neuronA() --> " << connectome_vector[x].get_neuronA() << " = " << a.get_neuronA() << " " << (connectome_vector[x].get_neuronA() == a.get_neuronA()) << endl;
-
             for(y = 0; y < postsynaptic_vector.size() ; y++)    {
 
                 if(postsynaptic_vector[y].get_neuronA() == connectome_vector[x].get_neuronB())   {
-                    /*
-                    cout << "\tpostsynaptic_vector[" << y << "].get_neuronA() == connectome_vector[" << x << "].get_neuronB() --> " << postsynaptic_vector[y].get_neuronA() << " = " << connectome_vector[x].get_neuronB() << " " << (postsynaptic_vector[y].get_neuronA() == connectome_vector[x].get_neuronB()) << endl;
-                    cout << endl;
-                    outputfile << "\tpostsynaptic_vector[" << y << "].get_neuronA() == connectome_vector[" << x << "].get_neuronB() --> " << postsynaptic_vector[y].get_neuronA() << " = " << connectome_vector[x].get_neuronB() << " " << (postsynaptic_vector[y].get_neuronA() == connectome_vector[x].get_neuronB()) << endl;
-                    outputfile << endl;
-                    */
-                    //  POSTSYNAPTIC VECTOR is altered here.
+
                     postsynaptic_vector[y].set_weight(connectome_vector[x].get_weight());
-                    /*
+
                     cout << "\tpostsynaptic vector altered at: ";
                     cout << " " << postsynaptic_vector[y].get_neuronA() << ", " << (postsynaptic_vector[y].get_weight() - connectome_vector[x].get_weight()) << "+" << connectome_vector[x].get_weight() << " = " << postsynaptic_vector[y].get_weight() << endl;
                     outputfile << "\tpostsynaptic vector altered at: ";
                     outputfile << " " << postsynaptic_vector[y].get_neuronA() << ", " << (postsynaptic_vector[y].get_weight() - connectome_vector[x].get_weight()) << "+" << connectome_vector[x].get_weight() << " = " << postsynaptic_vector[y].get_weight() << endl;
-                    */
+
                 }// end if
 
             }// end for
@@ -350,30 +344,24 @@ void dendriteAccumulate(vector<synapse> &connectome_vector, vector<synapse> &pos
  * then we check everywhere the accumulator is > threshold
  *
  */
-void fireNeuron(vector<synapse> &connectome_vector, vector<synapse> &postsynaptic_vector,synapse a)   {
+void fireNeuron(synapse a)   {
 
     int y;
     dendriteAccumulate(connectome_vector,postsynaptic_vector,a);
 
     for(y = 0 ; y < postsynaptic_vector.size() ; y++ )   {
 
-        //cout << "postsynaptic_vector[" << y << "]: " << postsynaptic_vector[y].get_neuronA() << " , " << postsynaptic_vector[y].get_weight() << endl;
-        //outputfile << "postsynaptic_vector[" << y << "]: " << postsynaptic_vector[y].get_neuronA() << " , " << postsynaptic_vector[y].get_weight() << endl;
-
         if(abs(postsynaptic_vector[y].get_weight()) > threshold)  {
 
-            //if(postsynaptic_vector[y].get_neuronA().substr(0,2) == "MV" || postsynaptic_vector[y].get_neuronA().substr(0,2) == "MD") {
-            if(postsynaptic_vector[y].get_neuronA() == "PLMR" || postsynaptic_vector[y].get_neuronA() == "PLML") {
+            if(postsynaptic_vector[y].get_neuronA().substr(0,2) == "MV"
+               || postsynaptic_vector[y].get_neuronA().substr(0,2) == "MD"
+               || postsynaptic_vector[y].get_neuronA() == "PLMR"
+               || postsynaptic_vector[y].get_neuronA() == "PLML") {
 
                 muscleFireCount++;
-                cout << "Fire Muscle " + postsynaptic_vector[y].get_neuronA() << postsynaptic_vector[y].get_weight() << endl;
-                outputfile << "Fire Muscle " + postsynaptic_vector[y].get_neuronA() << postsynaptic_vector[y].get_weight() << endl;
+                cout << "Fire Muscle " + postsynaptic_vector[y].get_neuronA() << abs(postsynaptic_vector[y].get_weight()) << endl;
+                outputfile << "Fire Muscle " + postsynaptic_vector[y].get_neuronA() << abs(postsynaptic_vector[y].get_weight()) << endl;
                 postsynaptic_vector[y].reset_weight();
-
-                //cout << "\t\tpostsynaptic_vector[" << y << "]: reset " << endl;
-                //outputfile << "\t\tpostsynaptic_vector[" << y << "]: reset " << endl;
-
-                //cout << "After Fire Muscle: " << postsynaptic_vector[y].get_weight() << endl;
 
             } else {
 
@@ -382,11 +370,6 @@ void fireNeuron(vector<synapse> &connectome_vector, vector<synapse> &postsynapti
                 outputfile << "Fire Neuron " + postsynaptic_vector[y].get_neuronA() << endl;
                 dendriteAccumulate(connectome_vector,postsynaptic_vector,postsynaptic_vector[y]);
                 postsynaptic_vector[y].reset_weight();
-
-                //cout << "\t\tpostsynaptic_vector[" << y << "]: reset " << endl;
-                //outputfile << "\t\tpostsynaptic_vector[" << y << "]: reset " << endl;
-
-                //cout << "After Fire Neuron: " << postsynaptic_vector[y].get_weight() << endl;
 
             }// end if/else
 
@@ -401,7 +384,7 @@ void fireNeuron(vector<synapse> &connectome_vector, vector<synapse> &postsynapti
  *
  *
  */
-void runconnectome(vector<synapse> &connectome_vector, vector<synapse> &postsynaptic_vector, synapse a)   {
+void runconnectome(synapse a)   {
 
     int y;
 
@@ -409,11 +392,7 @@ void runconnectome(vector<synapse> &connectome_vector, vector<synapse> &postsyna
 
     for(y = 0 ; y < postsynaptic_vector.size() ; y++)    {
 
-        //cout << "y: " << y << " " << postsynaptic_vector[y].get_neuronA()  << " , " << postsynaptic_vector[y].get_weight() << endl;
-
         if(abs(postsynaptic_vector[y].get_weight()) > threshold)  {
-
-            //cout << "y: " << y << " " << postsynaptic_vector[y].get_neuronA()  << " , " << postsynaptic_vector[y].get_weight() << endl;
 
             fireNeuron(connectome_vector,postsynaptic_vector,postsynaptic_vector[y]);
             postsynaptic_vector[y].reset_weight();
