@@ -3,7 +3,6 @@
 #include <fstream>
 #include <ctime>
 #include "synapse.h"
-#include "mpi.h"
 
 /*
  * when (neuron A, neuron B, weight)
@@ -61,21 +60,7 @@ int main(int argc, char** argv) {
     */
 
     //  variable for user input
-    //  MPI variables
-    MPI_Init(&argc, &argv);
 
-    string neuron;
-    int world_size,world_rank,name_len,token = 0;
-    int source,dest,offset,chunksize = 0;
-    char processor_name[MPI_MAX_PROCESSOR_NAME];
-
-    MPI_Comm_size(MPI_COMM_WORLD, &world_size);
-    MPI_Comm_rank(MPI_COMM_WORLD, &world_rank);
-    MPI_Get_processor_name(processor_name, &name_len);
-
-    /***** FOR MASTER NODE *****/
-
-    if(world_rank == 0) {
 
         /***** FILL VECTORS *****/
 
@@ -84,32 +69,6 @@ int main(int argc, char** argv) {
         //testFiles(connectome_vector,postsynaptic_vector);
 
         /***** END FILL VECTORS *****/
-
-        /***** BEGINNING OUTPUT *****/
-
-        cout << "\n----------\n";
-        cout << "The World Size is: " << world_size << endl;
-        cout << "Initial World Rank is: " << world_rank << endl;
-        cout << "connectome_vector size: " << connectome_vector.size() << endl;
-        cout << "postsynaptic_vector size: " << postsynaptic_vector.size() << endl;
-        cout << "----------\n";
-
-        outputfile << "\n----------\n";
-        outputfile << "The World Size is: " << world_size << endl;
-        outputfile << "Initial World Rank is: " << world_rank << endl;
-        outputfile << "connectome_vector size: " << connectome_vector.size() << endl;
-        outputfile << "postsynaptic_vector size: " << postsynaptic_vector.size() << endl;
-        outputfile << "----------\n";
-
-        cout << "\n----------\n";
-        cout << "Processor: " << processor_name << ", world_rank: " << world_rank << endl;
-        cout << "----------\n";
-
-        outputfile << "\n----------\n";
-        outputfile << "Processor: " << processor_name << ", world_rank: " << world_rank << endl;
-        outputfile << "----------\n";
-
-        /***** END BEGINNING OUTPUT *****/
 
         /***** START USER INPUT *****/
 
@@ -141,45 +100,20 @@ int main(int argc, char** argv) {
 
         /***** END FILE DECLARATION *****/
 
-        /***** ADDITIONAL VARIABLES *****/
-
-        chunksize = connectome_vector.size() / world_size;
-        t1 = clock();
-
-        /***** SEND TO OTHER NODES *****/
-
-        offset = chunksize;
-        for(dest = 1; dest < world_size; dest++) {
-
-            MPI_Send(&offset, 1, MPI_INT, dest, 0, MPI_COMM_WORLD);
-            //MPI_Send(&connectome_vector[offset],chunksize,MPI_FLOAT,dest,tag2,MPI_COMM_WORLD);
-            cout << "Sent [" << chunksize << "] elements to task [" << dest << "] offset = [" << offset << "]" << endl;
-
-            offset += chunksize;
-        }
-
-        /***** END SEND TO OTHER NODES *****/
 
         /***** MASTER NODE WORK START *****/
 
-        //  for master to do work
-        offset = 0;
 
-        cout << "offset [" << world_rank << "]: " << offset << endl;
-        cout << "chunksize [" << world_rank << "]: " << chunksize << endl;
-        outputfile << "offset [" << world_rank << "]: " << offset << endl;
-        outputfile << "chunksize [" << world_rank << "]: " << chunksize << endl;
-
-        for (int i = offset; i < (offset + chunksize); i++) {
+        for (int i = 0; i < connectome_vector.size(); i++) {
 
             if (connectome_vector[i].get_neuronA() == neuron) {
 
                 cout << "\n----------\n" << endl;
-                cout << "Running Connectome with neuron: " << connectome_vector[i].get_neuronA() << ", on " << processor_name << endl;
+                cout << "Running Connectome with neuron: " << connectome_vector[i].get_neuronA()  << endl;
                 cout << "----------\n" << endl;
 
                 outputfile << "\n----------\n" << endl;
-                outputfile << "Running Connectome with neuron: " << connectome_vector[i].get_neuronA() << ", on " << processor_name << endl;
+                outputfile << "Running Connectome with neuron: " << connectome_vector[i].get_neuronA()  << endl;
                 outputfile << "----------\n" << endl;
 
                 //  pass neuron from user input to runconnectome function
@@ -191,14 +125,11 @@ int main(int argc, char** argv) {
         /***** END OF PROGRAM DATA *****/
 
         t2 = clock();
-        //t3 = ((float)t2 - (float)t1);
 
         cout << "\n----------\n";
         cout << "Processor: " << processor_name << endl;
         cout << "Total Neurons Fired: " << neuronFireCount << endl;
         cout << "Total Muscles Fired: " << muscleFireCount << endl;
-        //cout << "Start Time: " << 0 << endl;
-        //cout << "End Time: " << (double)(t2/CLOCKS_PER_SEC) << endl;
         cout << "Total Run Time: " << (double)(t2/CLOCKS_PER_SEC) << " seconds" << endl;
         cout << "----------\n";
 
@@ -206,120 +137,13 @@ int main(int argc, char** argv) {
         outputfile << "Processor: " << processor_name << endl;
         outputfile << "Total Neurons Fired: " << neuronFireCount << endl;
         outputfile << "Total Muscles Fired: " << muscleFireCount << endl;
-        //outputfile << "Start Time: " << 0 << endl;
-        //outputfile << "End Time: " << (double)(t2/CLOCKS_PER_SEC) << endl;
         outputfile << "Total Run Time: " << (double)(t2/CLOCKS_PER_SEC) << " seconds" << endl;
         outputfile << "----------\n";
 
         /***** END OF PROGRAM DATA END *****/
 
-        /*
-        //  receive from other nodes
-        for(int i = 1; i < world_size; i++) {
-
-            source = i;
-            MPI_Recv(&offset, 1, MPI_INT, source, tag1, MPI_COMM_WORLD, &status);
-            //MPI_Recv(&connectome_vector[offset],chunksize, MPI_FLOAT, source, tag2, MPI_COMM_WORLD, &status);
-
-        }
-         */
-
-    }
-
-    /***** MASTER NODE WORK END *****/
-
-/***** END MASTER NODE *****/
-
-/***** NON MASTER NODES *****/
-
-    if(world_rank > 0) {
-
-        /***** RECEIVE DATA FROM MASTER NODE *****/
-
-        source = 0;
-        MPI_Recv(&offset,1,MPI_INT, source, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-        //MPI_Recv(&connectome_vector[offset],chunksize,MPI_FLOAT, source, tag2, MPI_COMM_WORLD, &status);
-
-        cout << "offset [" << world_rank << "]: " << offset << endl;
-        cout << "chunksize [" << world_rank << "]: " << chunksize << endl;
-        outputfile << "offset [" << world_rank << "]: " << offset << endl;
-        outputfile << "chunksize [" << world_rank << "]: " << chunksize << endl;
-
-        /***** END RECEIVE DATA FROM MASTER NODE *****/
-
-        /***** NON MASTER NODE WORK START *****/
-        cout << "\n----------\n";
-        cout << "Processor: " << processor_name << ", world_rank: " << world_rank << endl;
-        cout << "----------\n";
-
-        outputfile << "\n----------\n";
-        outputfile << "Processor: " << processor_name << ", world_rank: " << world_rank << endl;
-        outputfile << "----------\n";
-
-        for (int i = offset; i < (offset + chunksize); i++) {
-
-            if (connectome_vector[i].get_neuronA() == neuron) {
-
-                cout << "\n----------" << endl;
-                cout << "Running Connectome with neuron: " << connectome_vector[i].get_neuronA() << ", on " << processor_name << endl;
-                cout << "----------\n" << endl;
-
-                outputfile << "\n----------" << endl;
-                outputfile << "Running Connectome with neuron: " << connectome_vector[i].get_neuronA() << ", on " << processor_name << endl;
-                outputfile << "----------\n" << endl;
-
-                //  pass neuron from user input to runconnectome function
-                runconnectome(connectome_vector, postsynaptic_vector, connectome_vector[i]);
-
-            }
-        }
-
-        /***** NON MASTER NODE WORK END *****/
-
-        /***** END OF PROGRAM DATA *****/
-
-        //t1 = 0;
-        t2 = clock();
-        //t3 = ((float)t2 - (float)t1);
-
-        cout << "\n----------\n";
-        cout << "Processor: " << processor_name << endl;
-        cout << "Total Neurons Fired: " << neuronFireCount << endl;
-        cout << "Total Muscles Fired: " << muscleFireCount << endl;
-        //cout << "Start Time: " << 0 << endl;
-        //cout << "End Time: " << (double)(t2/CLOCKS_PER_SEC) << endl;
-        cout << "Total Run Time: " << (double)(t2/CLOCKS_PER_SEC) << " seconds" << endl;
-        cout << "----------\n";
-
-        outputfile << "\n----------\n";
-        outputfile << "Processor: " << processor_name << endl;
-        outputfile << "Total Neurons Fired: " << neuronFireCount << endl;
-        outputfile << "Total Muscles Fired: " << muscleFireCount << endl;
-        //outputfile << "Start Time: " << 0 << endl;
-        //outputfile << "End Time: " << (double)(t2/CLOCKS_PER_SEC) << endl;
-        outputfile << "Total Run Time: " << (double)(t3/CLOCKS_PER_SEC) << " seconds" << endl;
-        outputfile << "----------\n";
-
-        /***** END OF PROGRAM DATA END *****/
-
-        /*
-        //  send back to master task
-        dest = 0;
-        MPI_Send(&offset, 1, MPI_INT, dest, tag1, MPI_COMM_WORLD);
-        //MPI_Send(&connectome_vector[offset], chunksize, MPI_FLOAT, 0, tag2, MPI_COMM_WORLD);
-
-        //  MPI_Reduce statement needed????
-        */
-
-    }
-
-/***** END NON MASTER NODES *****/
-
     //  close the filestream
     outputfile.close();
-
-    //  close MPI
-    MPI_Finalize();
 
     return 0;
 
