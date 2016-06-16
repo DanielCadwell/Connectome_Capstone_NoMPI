@@ -1,0 +1,106 @@
+Please enter a neuron: VD9
+
+File K:\School\Summer_2016\connectome_noMPI\connectome.csv successfully read.
+File K:\School\Summer_2016\connectome_noMPI\postsynaptic.csv successfully read.
+
+
+----------
+
+Running Connectome with neuron: VD9
+----------
+
+	postsynaptic vector altered at:  MVL17, 0+-10 = -10
+	postsynaptic vector altered at:  MVL18, 0+-10 = -10
+	postsynaptic vector altered at:  MVR17, 0+-10 = -10
+	postsynaptic vector altered at:  MVR18, 0+-10 = -10
+	postsynaptic vector altered at:  PDER, 0+1 = 1
+	postsynaptic vector altered at:  VD10, 0+5 = 5
+
+----------
+
+Running Connectome with neuron: VD9
+----------
+
+	postsynaptic vector altered at:  MVL17, -10+-10 = -20
+	postsynaptic vector altered at:  MVL18, -10+-10 = -20
+	postsynaptic vector altered at:  MVR17, -10+-10 = -20
+	postsynaptic vector altered at:  MVR18, -10+-10 = -20
+	postsynaptic vector altered at:  PDER, 1+1 = 2
+	postsynaptic vector altered at:  VD10, 5+5 = 10
+Fire Muscle MVL1720
+Fire Muscle MVL1820
+Fire Muscle MVR1720
+Fire Muscle MVR1820
+
+----------
+
+Running Connectome with neuron: VD9
+----------
+
+	postsynaptic vector altered at:  MVL17, 0+-10 = -10
+	postsynaptic vector altered at:  MVL18, 0+-10 = -10
+	postsynaptic vector altered at:  MVR17, 0+-10 = -10
+	postsynaptic vector altered at:  MVR18, 0+-10 = -10
+	postsynaptic vector altered at:  PDER, 2+1 = 3
+	postsynaptic vector altered at:  VD10, 10+5 = 15
+
+----------
+
+Running Connectome with neuron: VD9
+----------
+
+	postsynaptic vector altered at:  MVL17, -10+-10 = -20
+	postsynaptic vector altered at:  MVL18, -10+-10 = -20
+	postsynaptic vector altered at:  MVR17, -10+-10 = -20
+	postsynaptic vector altered at:  MVR18, -10+-10 = -20
+	postsynaptic vector altered at:  PDER, 3+1 = 4
+	postsynaptic vector altered at:  VD10, 15+5 = 20
+Fire Muscle MVL1720
+Fire Muscle MVL1820
+Fire Muscle MVR1720
+Fire Muscle MVR1820
+Fire Neuron VD10
+	postsynaptic vector altered at:  AVBR, 0+1 = 1
+	postsynaptic vector altered at:  DD5, 0+1 = 1
+	postsynaptic vector altered at:  DD5, 1+1 = 2
+	postsynaptic vector altered at:  DVC, 0+4 = 4
+	postsynaptic vector altered at:  MVL17, 0+-9 = -9
+	postsynaptic vector altered at:  MVL20, 0+-9 = -9
+	postsynaptic vector altered at:  MVR17, 0+-9 = -9
+	postsynaptic vector altered at:  MVR20, 0+-9 = -9
+	postsynaptic vector altered at:  VB9, 0+2 = 2
+	postsynaptic vector altered at:  VD9, 0+5 = 5
+
+----------
+
+Running Connectome with neuron: VD9
+----------
+
+	postsynaptic vector altered at:  MVL17, 0+-10 = -10
+	postsynaptic vector altered at:  MVL18, 0+-10 = -10
+	postsynaptic vector altered at:  MVR17, -9+-10 = -19
+	postsynaptic vector altered at:  MVR18, 0+-10 = -10
+	postsynaptic vector altered at:  PDER, 4+1 = 5
+	postsynaptic vector altered at:  VD10, 0+5 = 5
+Fire Muscle MVR1719
+
+----------
+
+Running Connectome with neuron: VD9
+----------
+
+	postsynaptic vector altered at:  MVL17, -10+-10 = -20
+	postsynaptic vector altered at:  MVL18, -10+-10 = -20
+	postsynaptic vector altered at:  MVR17, 0+-10 = -10
+	postsynaptic vector altered at:  MVR18, -10+-10 = -20
+	postsynaptic vector altered at:  PDER, 5+1 = 6
+	postsynaptic vector altered at:  VD10, 5+5 = 10
+Fire Muscle MVL1720
+Fire Muscle MVL1820
+Fire Muscle MVR1820
+
+----------
+Total Neurons Fired: 1
+Total Muscles Fired: 12
+Total Run Time: 2 seconds
+----------
