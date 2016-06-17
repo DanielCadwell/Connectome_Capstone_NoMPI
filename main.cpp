@@ -323,9 +323,9 @@ void dendriteAccumulate(synapse a)  {
 
                     postsynaptic_vector[y].set_weight(connectome_vector[x].get_weight());
 
-                    cout << "\tpostsynaptic vector altered at: ";
+                    cout << "\tpostsynaptic weight: ";
                     cout << " " << postsynaptic_vector[y].get_neuronA() << ", " << (postsynaptic_vector[y].get_weight() - connectome_vector[x].get_weight()) << "+" << connectome_vector[x].get_weight() << " = " << postsynaptic_vector[y].get_weight() << endl;
-                    outputfile << "\tpostsynaptic vector altered at: ";
+                    outputfile << "\tpostsynaptic weight: ";
                     outputfile << " " << postsynaptic_vector[y].get_neuronA() << ", " << (postsynaptic_vector[y].get_weight() - connectome_vector[x].get_weight()) << "+" << connectome_vector[x].get_weight() << " = " << postsynaptic_vector[y].get_weight() << endl;
 
                 }// end if
