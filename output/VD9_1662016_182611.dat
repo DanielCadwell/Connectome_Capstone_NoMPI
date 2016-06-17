@@ -1,0 +1,106 @@
+Please enter a neuron: VD9
+
+File /Users/vanessaulloa/ClionProjects/connectome/connectome.csv successfully read.
+File /Users/vanessaulloa/ClionProjects/connectome/postsynaptic.csv successfully read.
+
+
+----------
+
+Running Connectome with neuron: VD9
+----------
+
+	postsynaptic weight:  MVL17, 0+-10 = -10
+	postsynaptic weight:  MVL18, 0+-10 = -10
+	postsynaptic weight:  MVR17, 0+-10 = -10
+	postsynaptic weight:  MVR18, 0+-10 = -10
+	postsynaptic weight:  PDER, 0+1 = 1
+	postsynaptic weight:  VD10, 0+5 = 5
+
+----------
+
+Running Connectome with neuron: VD9
+----------
+
+	postsynaptic weight:  MVL17, -10+-10 = -20
+	postsynaptic weight:  MVL18, -10+-10 = -20
+	postsynaptic weight:  MVR17, -10+-10 = -20
+	postsynaptic weight:  MVR18, -10+-10 = -20
+	postsynaptic weight:  PDER, 1+1 = 2
+	postsynaptic weight:  VD10, 5+5 = 10
+Fire Muscle MVL1720
+Fire Muscle MVL1820
+Fire Muscle MVR1720
+Fire Muscle MVR1820
+
+----------
+
+Running Connectome with neuron: VD9
+----------
+
+	postsynaptic weight:  MVL17, 0+-10 = -10
+	postsynaptic weight:  MVL18, 0+-10 = -10
+	postsynaptic weight:  MVR17, 0+-10 = -10
+	postsynaptic weight:  MVR18, 0+-10 = -10
+	postsynaptic weight:  PDER, 2+1 = 3
+	postsynaptic weight:  VD10, 10+5 = 15
+
+----------
+
+Running Connectome with neuron: VD9
+----------
+
+	postsynaptic weight:  MVL17, -10+-10 = -20
+	postsynaptic weight:  MVL18, -10+-10 = -20
+	postsynaptic weight:  MVR17, -10+-10 = -20
+	postsynaptic weight:  MVR18, -10+-10 = -20
+	postsynaptic weight:  PDER, 3+1 = 4
+	postsynaptic weight:  VD10, 15+5 = 20
+Fire Muscle MVL1720
+Fire Muscle MVL1820
+Fire Muscle MVR1720
+Fire Muscle MVR1820
+Fire Neuron VD10
+	postsynaptic weight:  AVBR, 0+1 = 1
+	postsynaptic weight:  DD5, 0+1 = 1
+	postsynaptic weight:  DD5, 1+1 = 2
+	postsynaptic weight:  DVC, 0+4 = 4
+	postsynaptic weight:  MVL17, 0+-9 = -9
+	postsynaptic weight:  MVL20, 0+-9 = -9
+	postsynaptic weight:  MVR17, 0+-9 = -9
+	postsynaptic weight:  MVR20, 0+-9 = -9
+	postsynaptic weight:  VB9, 0+2 = 2
+	postsynaptic weight:  VD9, 0+5 = 5
+
+----------
+
+Running Connectome with neuron: VD9
+----------
+
+	postsynaptic weight:  MVL17, 0+-10 = -10
+	postsynaptic weight:  MVL18, 0+-10 = -10
+	postsynaptic weight:  MVR17, -9+-10 = -19
+	postsynaptic weight:  MVR18, 0+-10 = -10
+	postsynaptic weight:  PDER, 4+1 = 5
+	postsynaptic weight:  VD10, 0+5 = 5
+Fire Muscle MVR1719
+
+----------
+
+Running Connectome with neuron: VD9
+----------
+
+	postsynaptic weight:  MVL17, -10+-10 = -20
+	postsynaptic weight:  MVL18, -10+-10 = -20
+	postsynaptic weight:  MVR17, 0+-10 = -10
+	postsynaptic weight:  MVR18, -10+-10 = -20
+	postsynaptic weight:  PDER, 5+1 = 6
+	postsynaptic weight:  VD10, 5+5 = 10
+Fire Muscle MVL1720
+Fire Muscle MVL1820
+Fire Muscle MVR1820
+
+----------
+Total Neurons Fired: 1
+Total Muscles Fired: 12
+Total Run Time: 0 seconds
+----------
