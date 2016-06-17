@@ -16,14 +16,14 @@ using namespace std;
 // global variables
 
 //  file names for linux implementation
-//string connectome_file = "connectome.csv";
-//string synaptic_file = "postsynaptic.csv";
+string connectome_file = "connectome.csv";
+string synaptic_file = "postsynaptic.csv";
 //string connectome_file = "edgelist.csv";
 //string synaptic_file = "synaptic.csv";
 
 //  direct file paths for debugging
-string connectome_file = "/Users/vanessaulloa/ClionProjects/connectome/connectome.csv";
-string synaptic_file = "/Users/vanessaulloa/ClionProjects/connectome/postsynaptic.csv";
+//string connectome_file = "/Users/vanessaulloa/ClionProjects/connectome/connectome.csv";
+//string synaptic_file = "/Users/vanessaulloa/ClionProjects/connectome/postsynaptic.csv";
 //string connectome_file = "/Users/vanessaulloa/ClionProjects/connectome/edgelist.csv";
 //string synaptic_file = "/Users/vanessaulloa/ClionProjects/connectome/synaptic.csv";
 
@@ -88,11 +88,10 @@ int main() {
     string outputDate = to_string(Day) + to_string(Month) + to_string(Year) + "_" + to_string(Hour) + to_string(Min) + to_string(Sec);
 
     //outputfile.open("/Users/vanessaulloa/ClionProjects/connectome_noMPI/output.txt");
-    outputfile.open(
-            "/Users/vanessaulloa/ClionProjects/Connectome_Capstone_NoMPI/output/" + neuron + "_" + outputDate + ".dat");
+    //outputfile.open("/Users/vanessaulloa/ClionProjects/Connectome_Capstone_NoMPI/output/" + neuron + "_" + outputDate + ".dat");
     //outputfile.open("K:\\School\\Summer_2016\\connectome_noMPI\\output\\"+ neuron + "_" + outputDate  + ".dat");
     //outputfile.open("output.txt");
-    //outputfile.open("output/" + neuron + "_" + outputDate  + ".dat");
+    outputfile.open("output/" + neuron + "_" + outputDate + ".dat");
 
     /***** END FILE DECLARATION *****/
 
