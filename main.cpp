@@ -22,10 +22,10 @@ using namespace std;
 //string synaptic_file = "synaptic.csv";
 
 //  direct file paths for debugging
-//string connectome_file = "/Users/vanessaulloa/ClionProjects/connectome/connectome.csv";
-//string synaptic_file = "/Users/vanessaulloa/ClionProjects/connectome/postsynaptic.csv";
-string connectome_file = "/Users/vanessaulloa/ClionProjects/connectome/edgelist.csv";
-string synaptic_file = "/Users/vanessaulloa/ClionProjects/connectome/synaptic.csv";
+string connectome_file = "/Users/vanessaulloa/ClionProjects/connectome/connectome.csv";
+string synaptic_file = "/Users/vanessaulloa/ClionProjects/connectome/postsynaptic.csv";
+//string connectome_file = "/Users/vanessaulloa/ClionProjects/connectome/edgelist.csv";
+//string synaptic_file = "/Users/vanessaulloa/ClionProjects/connectome/synaptic.csv";
 
 //string connectome_file = "K:\\School\\Summer_2016\\connectome_noMPI\\connectome.csv";
 //string synaptic_file = "K:\\School\\Summer_2016\\connectome_noMPI\\postsynaptic.csv";
@@ -322,12 +322,12 @@ void dendriteAccumulate(synapse a)  {
                 if(postsynaptic_vector[y].get_neuronA() == connectome_vector[x].get_neuronB())   {
 
                     postsynaptic_vector[y].set_weight(connectome_vector[x].get_weight());
-
+                    /*
                     cout << "\tpostsynaptic weight: ";
                     cout << " " << postsynaptic_vector[y].get_neuronA() << ", " << (postsynaptic_vector[y].get_weight() - connectome_vector[x].get_weight()) << "+" << connectome_vector[x].get_weight() << " = " << postsynaptic_vector[y].get_weight() << endl;
                     outputfile << "\tpostsynaptic weight: ";
                     outputfile << " " << postsynaptic_vector[y].get_neuronA() << ", " << (postsynaptic_vector[y].get_weight() - connectome_vector[x].get_weight()) << "+" << connectome_vector[x].get_weight() << " = " << postsynaptic_vector[y].get_weight() << endl;
-
+                    */
                 }// end if
 
             }// end for
