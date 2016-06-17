@@ -24,11 +24,11 @@ using namespace std;
 //  direct file paths for debugging
 //string connectome_file = "/Users/vanessaulloa/ClionProjects/connectome/connectome.csv";
 //string synaptic_file = "/Users/vanessaulloa/ClionProjects/connectome/postsynaptic.csv";
-//string connectome_file = "/Users/vanessaulloa/ClionProjects/connectome/edgelist.csv";
-//string synaptic_file = "/Users/vanessaulloa/ClionProjects/connectome/synaptic.csv";
+string connectome_file = "/Users/vanessaulloa/ClionProjects/connectome/edgelist.csv";
+string synaptic_file = "/Users/vanessaulloa/ClionProjects/connectome/synaptic.csv";
 
-string connectome_file = "K:\\School\\Summer_2016\\connectome_noMPI\\connectome.csv";
-string synaptic_file = "K:\\School\\Summer_2016\\connectome_noMPI\\postsynaptic.csv";
+//string connectome_file = "K:\\School\\Summer_2016\\connectome_noMPI\\connectome.csv";
+//string synaptic_file = "K:\\School\\Summer_2016\\connectome_noMPI\\postsynaptic.csv";
 //string connectome_file = "K:\\School\\Summer_2016\\connectome_noMPI\\edgelist.csv";
 //string synaptic_file = "K:\\School\\Summer_2016\\connectome_noMPI\\synaptic.csv";
 
@@ -88,8 +88,9 @@ int main() {
     string outputDate = to_string(Day) + to_string(Month) + to_string(Year) + "_" + to_string(Hour) + to_string(Min) + to_string(Sec);
 
     //outputfile.open("/Users/vanessaulloa/ClionProjects/connectome_noMPI/output.txt");
-    //outputfile.open("/Users/vanessaulloa/ClionProjects/connectome_noMPI/output/"+ neuron + "_" + outputDate  + ".dat");
-    outputfile.open("K:\\School\\Summer_2016\\connectome_noMPI\\output\\"+ neuron + "_" + outputDate  + ".dat");
+    outputfile.open(
+            "/Users/vanessaulloa/ClionProjects/Connectome_Capstone_NoMPI/output/" + neuron + "_" + outputDate + ".dat");
+    //outputfile.open("K:\\School\\Summer_2016\\connectome_noMPI\\output\\"+ neuron + "_" + outputDate  + ".dat");
     //outputfile.open("output.txt");
     //outputfile.open("output/" + neuron + "_" + outputDate  + ".dat");
 
@@ -124,7 +125,7 @@ int main() {
             outputfile << "----------\n" << endl;
 
             //  pass neuron from user input to runconnectome function
-            runconnectome(connectome_vector, postsynaptic_vector, connectome_vector[i]);
+            runconnectome(connectome_vector[i]);
 
         }
     }
@@ -347,7 +348,7 @@ void dendriteAccumulate(synapse a)  {
 void fireNeuron(synapse a)   {
 
     int y;
-    dendriteAccumulate(connectome_vector,postsynaptic_vector,a);
+    dendriteAccumulate(a);
 
     for(y = 0 ; y < postsynaptic_vector.size() ; y++ )   {
 
@@ -368,7 +369,7 @@ void fireNeuron(synapse a)   {
                 neuronFireCount++;
                 cout << "Fire Neuron " + postsynaptic_vector[y].get_neuronA() << endl;
                 outputfile << "Fire Neuron " + postsynaptic_vector[y].get_neuronA() << endl;
-                dendriteAccumulate(connectome_vector,postsynaptic_vector,postsynaptic_vector[y]);
+                dendriteAccumulate(postsynaptic_vector[y]);
                 postsynaptic_vector[y].reset_weight();
 
             }// end if/else
@@ -388,13 +389,13 @@ void runconnectome(synapse a)   {
 
     int y;
 
-    dendriteAccumulate(connectome_vector,postsynaptic_vector,a);
+    dendriteAccumulate(a);
 
     for(y = 0 ; y < postsynaptic_vector.size() ; y++)    {
 
         if(abs(postsynaptic_vector[y].get_weight()) > threshold)  {
 
-            fireNeuron(connectome_vector,postsynaptic_vector,postsynaptic_vector[y]);
+            fireNeuron(postsynaptic_vector[y]);
             postsynaptic_vector[y].reset_weight();
 
         }// end if
