@@ -16,8 +16,8 @@ using namespace std;
 // global variables
 
 //  file names for linux implementation
-string connectome_file = "connectome.csv";
-string synaptic_file = "postsynaptic.csv";
+//string connectome_file = "connectome.csv";
+//string synaptic_file = "postsynaptic.csv";
 //string connectome_file = "edgelist.csv";
 //string synaptic_file = "synaptic.csv";
 
@@ -31,6 +31,11 @@ string synaptic_file = "postsynaptic.csv";
 //string synaptic_file = "K:\\School\\Summer_2016\\connectome_noMPI\\postsynaptic.csv";
 //string connectome_file = "K:\\School\\Summer_2016\\connectome_noMPI\\edgelist.csv";
 //string synaptic_file = "K:\\School\\Summer_2016\\connectome_noMPI\\synaptic.csv";
+
+string connectome_file = "C:\\Users\\Vanessa\\ClionProjects\\Connectome_Capstone_NoMPI\\connectome.csv";
+string synaptic_file = "C:\\Users\\Vanessa\\ClionProjects\\Connectome_Capstone_NoMPI\\postsynaptic.csv";
+//string connectome_file = "C:\\Users\\Vanessa\\ClionProjects\\Connectome_Capstone_NoMPI\\edgelist.csv";
+//string synaptic_file = "C:\\Users\\Vanessa\\ClionProjects\\Connectome_Capstone_NoMPI\\synaptic.csv";
 
 /*
  * threshold - determines when neuron fires
@@ -90,8 +95,9 @@ int main() {
     //outputfile.open("/Users/vanessaulloa/ClionProjects/connectome_noMPI/output.txt");
     //outputfile.open("/Users/vanessaulloa/ClionProjects/Connectome_Capstone_NoMPI/output/" + neuron + "_" + outputDate + ".dat");
     //outputfile.open("K:\\School\\Summer_2016\\connectome_noMPI\\output\\"+ neuron + "_" + outputDate  + ".dat");
+    outputfile.open("C:\\Users\\Vanessa\\ClionProjects\\Connectome_Capstone_NoMPI\\output\\"+ neuron + "_" + outputDate  + ".dat");
     //outputfile.open("output.txt");
-    outputfile.open("output/" + neuron + "_" + outputDate + ".dat");
+    //outputfile.open("output/" + neuron + "_" + outputDate + ".dat");
 
     /***** END FILE DECLARATION *****/
 
@@ -159,19 +165,16 @@ int main() {
 /*
  * testFiles()
  * tests that the vectors were filled with data from .csv
- * by displayed some of the values
+ * by displaying the vector size and vector contents
  *
  */
 
 void testFiles()  {
 
-    ///
-    /*      testing for file reads and pushed values onto vectors   */
-    ///
+    /*****  DISPLAY CONNECTOME VECTOR *****/
 
-    //   to test that values were stored in the vector
-    //   by checking the size and the first value connectome elements
     cout << "connectome vector size: " << connectome_vector.size() << endl;
+
     for(int i = 0; i < connectome_vector.size(); i++) {
         cout << "\t" << i << " : " << connectome_vector[i].get_neuronA() << endl;
         cout << "\t" << i << " : " << connectome_vector[i].get_neuronB() << endl;
@@ -179,20 +182,15 @@ void testFiles()  {
         cout << endl;
     }
 
+    /*****  DISPLAY POSTSYNAPTIC VECTOR *****/
 
-
-    //  to test the values stored in the vector
-    //  by checking the size and values of the postsynaptic elements
     cout << "postsynaptic vector size: " << postsynaptic_vector.size() << endl;
+
     for(int i = 0; i < postsynaptic_vector.size(); i++) {
         cout << "\t" << i << " : " << postsynaptic_vector[i].get_neuronA() << endl;
         cout << "\t" << i << " : " << postsynaptic_vector[i].get_weight() << endl;
         cout << endl;
     }
-
-    ///
-    /*  end test    */
-    ///
 
 }
 
